@@ -3,7 +3,7 @@ const ACCOUNTS = [
   { id: 'account-2', name: 'บัญชีที่ 2', color: '#22c55e', host: 'api.vmoscloud.com', accessKey: 'RMAc••••••••3bQ4' }
 ];
 
-const PATHS = { list:'/vcpcloud/api/padApi/padDetail', restart:'/vcpcloud/api/padApi/restart', rename:'/vcpcloud/api/padApi/updatePadName', preview:'/vcpcloud/api/padApi/getLongGenerateUrl', token:'/vcpcloud/api/padApi/stsTokenByPadCode', apps:'/vcpcloud/api/padApi/listInstalledApp', stopStream:'/vcpcloud/api/padApi/dissolveRoom' };
+const PATHS = { list:['/vcpcloud/api/padApi/userPadList','/vcpcloud/api/padApi/padDetail','/vcpcloud/api/padApi/infos'], restart:'/vcpcloud/api/padApi/restart', rename:'/vcpcloud/api/padApi/updatePadName', preview:'/vcpcloud/api/padApi/getLongGenerateUrl', token:'/vcpcloud/api/padApi/stsTokenByPadCode', apps:'/vcpcloud/api/padApi/listInstalledApp', stopStream:'/vcpcloud/api/padApi/dissolveRoom' };
 const state = { devices:[], logs:JSON.parse(localStorage.getItem('vmos-logs')||'[]'), loading:false, viewMode:localStorage.getItem('vmos-view')||'grid' };
 const $ = s => document.querySelector(s); const $$ = s => [...document.querySelectorAll(s)];
 
@@ -11,7 +11,7 @@ async function api(account,path,body={}){let response;try{response=await fetch('
 
 function normalize(raw,account){return {accountId:account.id,accountName:account.name,accountColor:account.color,padCode:raw.padCode||raw.code||'-',name:raw.padName||raw.name||raw.padCode||'Cloud Phone',online:Number(raw.online??raw.status??0)===1,cvmStatus:Number(raw.cvmStatus??raw.padStatus??0),ip:raw.padIp||raw.deviceIp||raw.padIpV4||'-',model:raw.configName||raw.goodName||raw.androidVersion||'-',expires:raw.signExpirationTime||raw.expireTime||'-',preview:raw.screenshotLink||raw.screenshotUrl||'',raw}}
 function extractList(data){if(Array.isArray(data))return data;for(const key of ['list','records','rows','data','padList'])if(Array.isArray(data?.[key]))return data[key];return []}
-async function loadAccount(account){const res=await api(account,PATHS.list,{rows:1000});return extractList(res.data).map(x=>normalize(x,account))}
+async function loadAccount(account){let lastError;for(const path of PATHS.list){try{const body=path.endsWith('/padDetail')?{rows:1000}:{};const res=await api(account,path,body);return extractList(res.data).map(x=>normalize(x,account))}catch(error){lastError=error}}throw lastError||new Error('ไม่พบ Endpoint สำหรับรายการเครื่อง')}
 async function refresh(){if(state.loading)return;state.loading=true;$('#refreshBtn').disabled=true;$('#refreshBtn').textContent='↻ กำลังโหลด';$('#corsNotice').classList.add('hidden');const results=await Promise.allSettled(ACCOUNTS.map(loadAccount));state.devices=results.flatMap(r=>r.status==='fulfilled'?r.value:[]);const failed=results.filter(r=>r.status==='rejected');if(failed.length){failed.forEach((r,i)=>log('เชื่อมต่อบัญชีไม่สำเร็จ',r.reason.message,'error'));if(failed.some(r=>r.reason.isNetwork))$('#corsNotice').classList.remove('hidden');toast(`เชื่อมต่อไม่สำเร็จ ${failed.length} บัญชี`,'error')}else{toast(`โหลดเครื่อง ${state.devices.length} เครื่องแล้ว`);$('#apiState').textContent='เชื่อมต่อแล้ว';$('.pulse').style.background='var(--green)'}$('#lastSync').textContent='อัปเดต '+new Date().toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'});state.loading=false;$('#refreshBtn').disabled=false;$('#refreshBtn').textContent='↻ รีเฟรช';render()}
 
 function statusOf(d){if(d.cvmStatus===104||d.cvmStatus===14)return'abnormal';return d.online?'online':'offline'}

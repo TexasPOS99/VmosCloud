@@ -2,6 +2,8 @@
 
 แดชบอร์ดจัดการ VMOS Cloud สองบัญชี พร้อม Vercel Serverless Proxy สำหรับแก้ปัญหา CORS
 
+เวอร์ชัน 1.2 รองรับการค้นหารายการเครื่องผ่าน `userPadList`, `padDetail` และ `infos` โดยเลือก Endpoint ที่บัญชีรองรับให้อัตโนมัติ
+
 ## วิธีนำขึ้นใช้งานด้วย GitHub + Vercel
 
 1. สร้าง Repository ใหม่ใน GitHub

@@ -7,7 +7,9 @@ const ACCOUNTS = {
 };
 
 const ALLOWED_PATHS = new Set([
+  '/vcpcloud/api/padApi/userPadList',
   '/vcpcloud/api/padApi/padDetail',
+  '/vcpcloud/api/padApi/infos',
   '/vcpcloud/api/padApi/restart',
   '/vcpcloud/api/padApi/updatePadName',
   '/vcpcloud/api/padApi/getLongGenerateUrl',
