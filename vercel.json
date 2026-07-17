@@ -1,14 +1,39 @@
 {
   "version": 2,
-  "functions": {
-    "api/vmos.js": { "maxDuration": 30 }
-  },
-  "headers": [
+  "builds": [
     {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" }
-      ]
+      "src": "api/vmos.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "styles.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "app.js",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/vmos/?$",
+      "dest": "/api/vmos.js"
+    },
+    {
+      "src": "/styles.css",
+      "dest": "/styles.css"
+    },
+    {
+      "src": "/app.js",
+      "dest": "/app.js"
+    },
+    {
+      "src": "/.*",
+      "dest": "/index.html"
     }
   ]
 }

@@ -19,6 +19,7 @@
 - `app.js` ระบบแดชบอร์ด
 - `api/vmos.js` ตัวกลางเรียก VMOS API และลงลายเซ็น V2
 - `vercel.json` การตั้งค่า Vercel
+- `package.json` ระบุ Node.js Runtime สำหรับ API Proxy
 
 ## ข้อควรรู้
 
@@ -26,5 +27,10 @@
 - อย่าแชร์ Repository กับบุคคลอื่น และแนะนำให้ตั้ง Repository เป็น Private
 - GitHub Pages ใช้ชุดนี้ไม่ได้ เพราะไม่สามารถทำงานฝั่งเซิร์ฟเวอร์ในโฟลเดอร์ `api` ได้
 - ประวัติคำสั่งเก็บใน Local Storage ของเบราว์เซอร์
+
+## ตรวจสอบหลัง Deploy
+
+เปิด `/api/vmos` ต่อท้าย URL ของ Vercel เช่น `https://ชื่อโปรเจกต์.vercel.app/api/vmos`
+หาก Proxy ทำงาน จะเห็น `{"ok":true,"service":"VMOS Proxy","accounts":2}`
 
 เอกสารอ้างอิง: https://cloud.vmoscloud.com/vmoscloud/doc/en/server/example-v2.html

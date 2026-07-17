@@ -18,6 +18,9 @@ const ALLOWED_PATHS = new Set([
 
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
+  if (req.method === 'GET') {
+    return res.status(200).json({ ok: true, service: 'VMOS Proxy', accounts: Object.keys(ACCOUNTS).length });
+  }
   if (req.method !== 'POST') return res.status(405).json({ code: 405, msg: 'Method not allowed' });
 
   const { accountId, path, body = {} } = req.body || {};
