@@ -14,6 +14,10 @@
       "use": "@vercel/static"
     },
     {
+      "src": "features.css",
+      "use": "@vercel/static"
+    },
+    {
       "src": "app.js",
       "use": "@vercel/static"
     }
@@ -26,6 +30,10 @@
     {
       "src": "/styles.css",
       "dest": "/styles.css"
+    },
+    {
+      "src": "/features.css",
+      "dest": "/features.css"
     },
     {
       "src": "/app.js",

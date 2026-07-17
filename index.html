@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="features.css">
 </head>
 <body>
   <div class="app-shell">
@@ -35,9 +36,13 @@
         <div class="toolbar">
           <label class="search"><span>⌕</span><input id="searchInput" placeholder="ค้นหาชื่อเครื่องหรือรหัส..."></label>
           <select id="accountFilter"><option value="all">ทุกบัญชี</option></select>
+          <select id="groupFilter"><option value="all">ทุกกลุ่มงาน</option><option value="ungrouped">ยังไม่มีกลุ่ม</option></select>
           <select id="statusFilter"><option value="all">ทุกสถานะ</option><option value="online">ออนไลน์</option><option value="offline">ออฟไลน์</option><option value="abnormal">ผิดปกติ</option></select>
+          <select id="sortSelect"><option value="name-asc">ชื่อ A → Z</option><option value="name-desc">ชื่อ Z → A</option><option value="code-asc">รหัสเครื่อง</option></select>
           <div class="view-switch"><button class="active" data-mode="grid">▦</button><button data-mode="list">☷</button></div>
         </div>
+        <div class="group-tools"><button class="ghost-btn" id="manageGroupsBtn">＋ จัดการกลุ่มงาน</button><button class="ghost-btn" id="selectVisibleBtn">☑ เลือกทั้งหมดที่แสดง</button><span id="quotaText">โควตาเปลี่ยนเครื่องวันนี้: 500/500</span></div>
+        <div class="bulk-bar hidden" id="bulkBar"><b>เลือกแล้ว <span id="selectedCount">0</span> เครื่อง</b><button data-bulk="group">จัดกลุ่ม</button><button data-bulk="language">ภาษา</button><button data-bulk="timezone">เขตเวลา</button><button data-bulk="restart">รีสตาร์ต</button><button data-bulk="replace">เปลี่ยนเครื่อง</button><button class="danger" data-bulk="reset">เริ่มต้นใหม่</button><button id="clearSelection">ยกเลิกเลือก</button></div>
         <div class="notice hidden" id="corsNotice"><strong>เชื่อมต่อตัวกลาง API ไม่สำเร็จ</strong><span>กรุณาตรวจสอบว่าเปิดเว็บผ่าน Vercel และมีไฟล์ <code>api/vmos.js</code> อยู่ใน Repository</span></div>
         <div class="device-grid" id="deviceGrid"></div>
         <div class="empty hidden" id="emptyState"><div>⌁</div><h3>ไม่พบเครื่อง</h3><p>ลองเปลี่ยนตัวกรอง หรือกดรีเฟรชอีกครั้ง</p></div>
