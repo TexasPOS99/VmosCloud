@@ -38,13 +38,13 @@
           <select id="statusFilter"><option value="all">ทุกสถานะ</option><option value="online">ออนไลน์</option><option value="offline">ออฟไลน์</option><option value="abnormal">ผิดปกติ</option></select>
           <div class="view-switch"><button class="active" data-mode="grid">▦</button><button data-mode="list">☷</button></div>
         </div>
-        <div class="notice hidden" id="corsNotice"><strong>เบราว์เซอร์เชื่อมต่อ API ไม่สำเร็จ</strong><span>หาก Console แจ้ง CORS แปลว่า VMOS ไม่อนุญาตให้ GitHub Pages เรียกโดยตรง จำเป็นต้องเพิ่ม Proxy ภายหลัง — ตัวเว็บและคีย์ยังปกติ</span></div>
+        <div class="notice hidden" id="corsNotice"><strong>เชื่อมต่อตัวกลาง API ไม่สำเร็จ</strong><span>กรุณาตรวจสอบว่าเปิดเว็บผ่าน Vercel และมีไฟล์ <code>api/vmos.js</code> อยู่ใน Repository</span></div>
         <div class="device-grid" id="deviceGrid"></div>
         <div class="empty hidden" id="emptyState"><div>⌁</div><h3>ไม่พบเครื่อง</h3><p>ลองเปลี่ยนตัวกรอง หรือกดรีเฟรชอีกครั้ง</p></div>
       </section>
 
       <section class="view" id="activityView"><div class="panel"><div class="panel-head"><h2>ประวัติคำสั่ง</h2><button class="ghost-btn" id="clearLogs">ล้างประวัติ</button></div><div id="activityList" class="activity-list"></div></div></section>
-      <section class="view" id="settingsView"><div class="panel settings-panel"><h2>ตั้งค่าบัญชี</h2><p>คีย์ถูกฝังในไฟล์ <code>app.js</code> ตามที่เจ้าของอนุญาต</p><div id="settingsAccounts"></div><div class="warning-box">เว็บนี้มีข้อมูลลับอยู่ในซอร์สโค้ด อย่าแชร์ URL หรือ Repository กับบุคคลอื่น</div></div></section>
+      <section class="view" id="settingsView"><div class="panel settings-panel"><h2>ตั้งค่าบัญชี</h2><p>การเชื่อมต่อทำผ่าน Vercel Function เพื่อแก้ปัญหา CORS ของ VMOS</p><div id="settingsAccounts"></div><div class="warning-box">ไฟล์ฝั่งเซิร์ฟเวอร์มี API Key อยู่ อย่าแชร์ Repository กับบุคคลอื่น</div></div></section>
     </main>
   </div>
 
