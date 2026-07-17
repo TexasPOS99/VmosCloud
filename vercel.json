@@ -21,6 +21,10 @@
       "src": "app.js",
       "use": "@vercel/static"
     }
+    ,{
+      "src": "fixes.js",
+      "use": "@vercel/static"
+    }
   ],
   "routes": [
     {
@@ -38,6 +42,10 @@
     {
       "src": "/app.js",
       "dest": "/app.js"
+    },
+    {
+      "src": "/fixes.js",
+      "dest": "/fixes.js"
     },
     {
       "src": "/.*",
