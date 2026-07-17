@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#08111f">
+  <title>VMOS Control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><div class="brand-mark">V</div><div><strong>VMOS Control</strong><small>Multi-account console</small></div></div>
+      <nav>
+        <button class="nav-item active" data-view="devices"><span>▦</span> เครื่องทั้งหมด</button>
+        <button class="nav-item" data-view="activity"><span>◷</span> ประวัติคำสั่ง</button>
+        <button class="nav-item" data-view="settings"><span>⚙</span> ตั้งค่า</button>
+      </nav>
+      <div class="account-list" id="accountList"></div>
+      <div class="sidebar-note"><span class="pulse"></span><div><b>VMOS API</b><small id="apiState">รอเชื่อมต่อ</small></div></div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button class="icon-btn mobile-menu" id="menuBtn" aria-label="เมนู">☰</button>
+        <div><h1 id="pageTitle">เครื่องทั้งหมด</h1><p id="subtitle">จัดการ Cloud Phone จากทุกบัญชีในที่เดียว</p></div>
+        <div class="top-actions"><span class="last-sync" id="lastSync">ยังไม่ได้ซิงก์</span><button class="primary-btn" id="refreshBtn">↻ รีเฟรช</button></div>
+      </header>
+
+      <section class="view active" id="devicesView">
+        <div class="stats" id="stats"></div>
+        <div class="toolbar">
+          <label class="search"><span>⌕</span><input id="searchInput" placeholder="ค้นหาชื่อเครื่องหรือรหัส..."></label>
+          <select id="accountFilter"><option value="all">ทุกบัญชี</option></select>
+          <select id="statusFilter"><option value="all">ทุกสถานะ</option><option value="online">ออนไลน์</option><option value="offline">ออฟไลน์</option><option value="abnormal">ผิดปกติ</option></select>
+          <div class="view-switch"><button class="active" data-mode="grid">▦</button><button data-mode="list">☷</button></div>
+        </div>
+        <div class="notice hidden" id="corsNotice"><strong>เบราว์เซอร์เชื่อมต่อ API ไม่สำเร็จ</strong><span>หาก Console แจ้ง CORS แปลว่า VMOS ไม่อนุญาตให้ GitHub Pages เรียกโดยตรง จำเป็นต้องเพิ่ม Proxy ภายหลัง — ตัวเว็บและคีย์ยังปกติ</span></div>
+        <div class="device-grid" id="deviceGrid"></div>
+        <div class="empty hidden" id="emptyState"><div>⌁</div><h3>ไม่พบเครื่อง</h3><p>ลองเปลี่ยนตัวกรอง หรือกดรีเฟรชอีกครั้ง</p></div>
+      </section>
+
+      <section class="view" id="activityView"><div class="panel"><div class="panel-head"><h2>ประวัติคำสั่ง</h2><button class="ghost-btn" id="clearLogs">ล้างประวัติ</button></div><div id="activityList" class="activity-list"></div></div></section>
+      <section class="view" id="settingsView"><div class="panel settings-panel"><h2>ตั้งค่าบัญชี</h2><p>คีย์ถูกฝังในไฟล์ <code>app.js</code> ตามที่เจ้าของอนุญาต</p><div id="settingsAccounts"></div><div class="warning-box">เว็บนี้มีข้อมูลลับอยู่ในซอร์สโค้ด อย่าแชร์ URL หรือ Repository กับบุคคลอื่น</div></div></section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modalClose">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+  <div class="toast-stack" id="toastStack"></div>
+  <script src="app.js"></script>
+</body>
+</html>
