@@ -25,6 +25,10 @@
       "src": "fixes.js",
       "use": "@vercel/static"
     }
+    ,{
+      "src": "automation.js",
+      "use": "@vercel/static"
+    }
   ],
   "routes": [
     {
@@ -46,6 +50,10 @@
     {
       "src": "/fixes.js",
       "dest": "/fixes.js"
+    },
+    {
+      "src": "/automation.js",
+      "dest": "/automation.js"
     },
     {
       "src": "/.*",
